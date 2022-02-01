@@ -2,6 +2,7 @@
 require_relative './display.rb'
 
 class Hangman
+  attr_accessor :guess_array
   include Display
   
   def initialize
@@ -25,8 +26,6 @@ class Hangman
   def new_word
     @comp_word =  @words_list.sample 
   end
-
- 
 
   #============================
   # Gameplay
@@ -55,6 +54,8 @@ class Hangman
    dash.join("")
   end
 
+
+
   def winner?
     p "\n==> !!!!!Congratulations. You've won!!!!!!\n" if player_guess = @comp_word
   end
@@ -76,8 +77,8 @@ game.display_word_size
 
 dash = game.dashes
 
-p word
-guesses = 8
+#p word
+guesses = 13
 
 8.times do
   game.player_guess

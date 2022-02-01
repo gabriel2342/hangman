@@ -26,7 +26,7 @@
     @player_guess = gets.chomp
   end
 
-  def display_letters_guessed
-    guess_array = []
+  # def display_letters_guessed
+  #   guess_array = []
 
 end
