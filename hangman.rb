@@ -1,14 +1,17 @@
 
 require_relative './display.rb'
+require_relative './drawing.rb'
+
 
 class Hangman
   attr_accessor :guess_array
   include Display
+  include HangmanDrawing
   
-  def initialize
+  def initialize #creates list of 10000 words when initialized
     @words = File.open("google-10000-english-no-swears.txt")
     @words_list = @words.readlines.map(&:chomp)
-  
+    
   end
 
  #========================
@@ -44,6 +47,7 @@ class Hangman
     d.split("")
   end
 
+  
   def replace_dashes(dash)
     word_array.each_with_index do |char,i|
       if char == @guess
@@ -55,49 +59,63 @@ class Hangman
   end
 
 
-
-  def winner?
-    p "\n==> !!!!!Congratulations. You've won!!!!!!\n" if player_guess = @comp_word
-  end
-
 end
 
 
 
-game = Hangman.new
-word = game.new_word
+game = Hangman.new #initialize game
+word = game.new_word #select our secret word
 
-game.welcome_banner
+game.welcome_banner #output welcome banner
+game.just_the_stand #output hagnman stand
 game.initial_guesses
+
 
 until game.word_size >=5 && game.word_size <=10
   word = game.new_word
 end
+
 game.display_word_size
 
 dash = game.dashes
 
-#p word
-guesses = 13
+p word
+guesses = 8
+incorrect = 1
+guessarr =[]
+stand = game.just_the_stand
+p stand
 
-8.times do
-  game.player_guess
+while guesses <= 8
+  letter = game.player_guess
   if game.guess_correct?
     puts "\n==> Yay! Great Guess!!"
-    puts "\n==> Your current results #{game.replace_dashes(dash)}"
-    guesses -= 1
-    puts "\n==> You have #{guesses} guesses remaining."
+    dashstr = game.replace_dashes(dash)
+    stand
+    puts "\n==> Your current results #{dashstr}"
+    puts "==> Your past incorrect guesses are #{guessarr}"
   else 
-    guesses -=1 
+    guesses -=1
     puts "\n==> Womp Womp. You have #{guesses} guesses remaining"
+    stand = game.current_hangman(guesses).dup
+    guessarr << letter
+    puts "\n==> Your current results #{dashstr}"
+    puts "\n==> You're past incorrect guesses are #{guessarr}"
   end
-  puts "\n==> Would you like to guess the word? Please enter yes or no"
-  choice = gets.chomp.downcase
-  if choice == 'yes'
-    game.display_guess_word
-    break if game.winner?
+
+  if guesses == 0
+    puts "You've lost. Great game!"
+    break
+  elsif dashstr == word
+    puts "You've Won!"
+    break
   end
+
 end
+
+  
+
+  
 
 
 

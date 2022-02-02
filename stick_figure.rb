@@ -13,7 +13,7 @@ forward 1
 repeat 90
 
 right 94
-forward 80
+forward 80   
 right 55
 forward 90
 backward 90
