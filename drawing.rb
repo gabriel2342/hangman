@@ -121,9 +121,12 @@ module HangmanDrawing
     bottom
   end
 
-  def just_the_stand
+  def guess_1
     top
-    3.times {stand_piece}
+    stand_piece
+    stand_piece
+    stand_piece
+    stand_piece
     bottom
   end
 
@@ -144,7 +147,7 @@ module HangmanDrawing
     elsif n == 7
       guess_2
     else             
-      just_the_stand
+      guess_1
     end
   end
 end

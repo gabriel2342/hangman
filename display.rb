@@ -13,7 +13,7 @@
     puts "================================"
   end
     
-  def initial_guesses  
+  def game_overview  
   puts "==> For each attempt you will be given an opportunity to guess a letter and match it with a letter in our secret word."
   puts "==> The secret word is choosen randomly by our computer and will be between 5-10 letters long." 
   puts "==> You're allowed 8 incorrect guesses when trying to decipher our secret word."

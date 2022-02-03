@@ -67,43 +67,45 @@ game = Hangman.new #initialize game
 word = game.new_word #select our secret word
 
 game.welcome_banner #output welcome banner
-game.just_the_stand #output hagnman stand
-game.initial_guesses
+game.guess_1 #output hagnman stand
+game.game_overview #outputs game description and rules
 
 
+#Checks to make sure our word is between 5 and 10 words long
 until game.word_size >=5 && game.word_size <=10
   word = game.new_word
 end
 
+#lets the user know how many letters are in the secret word
 game.display_word_size
 
+#creates a string of dashes based on the size of the words
 dash = game.dashes
 
 p word
-guesses = 8
-incorrect = 1
-guessarr =[]
-stand = game.just_the_stand
-p stand
+incorrect_guesses = 8 #initialize the numbers of guesses for wach user 
+guessarr =[] #array of wrong guesses by the user
+game.guess_1 #output our hangman stand and initialize the stand variable
 
-while guesses <= 8
+
+while incorrect_guesses > 0
   letter = game.player_guess
   if game.guess_correct?
     puts "\n==> Yay! Great Guess!!"
     dashstr = game.replace_dashes(dash)
-    stand
+    game.current_hangman(incorrect_guesses)
     puts "\n==> Your current results #{dashstr}"
-    puts "==> Your past incorrect guesses are #{guessarr}"
+    puts "==> Your past incorrect incorrect_guesses are #{guessarr}"
   else 
-    guesses -=1
-    puts "\n==> Womp Womp. You have #{guesses} guesses remaining"
-    stand = game.current_hangman(guesses).dup
+    incorrect_guesses -=1
+    puts "\n==> Womp Womp. You have #{incorrect_guesses} incorrect_guesses remaining"
+    game.current_hangman(incorrect_guesses)
     guessarr << letter
     puts "\n==> Your current results #{dashstr}"
-    puts "\n==> You're past incorrect guesses are #{guessarr}"
+    puts "\n==> You're past incorrect incorrect_guesses are #{guessarr}"
   end
 
-  if guesses == 0
+  if incorrect_guesses == 0
     puts "You've lost. Great game!"
     break
   elsif dashstr == word
