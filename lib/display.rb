@@ -85,10 +85,12 @@ module Display
   end
 
   def num_incorrect_guesses(array)
-    if array.empty?
+    red_guess = array.join(" ")
+    red_guess = red_guess.red
+    if array.nil?
       puts "==> Your past incorrect guesses are" + " NONE".cyan
     else
-      puts "==> Your past incorrect guesses are #{array.join(" ")}"
+      puts "==> Your past incorrect guesses are #{red_guess}"
     end
 
   end

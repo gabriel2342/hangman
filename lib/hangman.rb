@@ -29,10 +29,12 @@ class Hangman
     @first_correct_guess = false
     @dash = ("-"*word_size).split("")
     @incorrect_guesses = MAX_GUESS
-    @guessarr = []
+    @correct_guess_arr = []
+    @wrong_guess_arr = []
     @guess = ""
     @letter = ""
     @dashstr = ""
+    
     game_round
   end
 
@@ -59,9 +61,9 @@ class Hangman
 
 
   def player_guess
-    puts "==> Please enter your best guess for a letter in our secret word."
+    puts "==> Please enter your best guess for a letter in our secret word"
+    puts "==> OR type 'save' to save your game."
     @guess = gets.chomp
-    #save?(@guess) if @guess.downcase == 'save'
   end
 
   def if_save?(input)
@@ -69,7 +71,16 @@ class Hangman
   end
 
   def validate_guess(char)
-    false unless char =~ /[A-Za-z]/ && char.size == 1
+    unless char =~ /[A-Za-z]/ && char.size == 1
+      puts "\n==> Please only enter a single letter of the English alphabet!\n".yellow
+      return false
+    end
+
+    if @correct_guess_arr.include?(char) || @wrong_guess_arr.include?(char)
+      puts "\n==> You've played this letter already. Please guess again!\n".yellow
+      return false
+    end
+
   end
 
   def guess_correct?
@@ -87,6 +98,8 @@ class Hangman
    dashh.join("")
   end
 
+ 
+
 
   def game_round
     
@@ -95,29 +108,27 @@ class Hangman
 
       @letter = player_guess
       if_save?(@letter)
-      validate_guess(@letter)
-
       while validate_guess(@letter) == false
-        display_warning
         @letter = player_guess
       end
 
 
       if guess_correct?
         @first_correct_guess = true
-        @dashstr = replace_dashes(@dash)
+        @dashstr = replace_dashes(@dash).light_green
         current_hangman(@incorrect_guesses, @dashstr)
+        @correct_guess_arr << @letter
         puts "\n==> Yay! Great Guess!!".light_green
         all_incorrect_guesses if @incorrect_guesses == MAX_GUESS
-        num_incorrect_guesses(@guessarr)
+        num_incorrect_guesses(@wrong_guess_arr)
         remaining_incorrect_guesses(@incorrect_guesses) if @incorrect_guesses != MAX_GUESS
         win_or_loss?(@comp_word, @dashstr, @incorrect_guesses)
       else
         @incorrect_guesses -= WRONG_GUESS
         current_hangman(@incorrect_guesses, @dashstr)
-        @guessarr << @letter.red
+        @wrong_guess_arr << @letter
         puts  "\n==> Womp Womp. Wrong.".red
-        num_incorrect_guesses(@guessarr)
+        num_incorrect_guesses(@wrong_guess_arr)
         remaining_incorrect_guesses(@incorrect_guesses)
         win_or_loss?(@comp_word, @dashstr, @incorrect_guesses)
       end
@@ -139,9 +150,6 @@ class Hangman
   end
 
   def win_or_loss?(word, str, guesse)
-    p "str #{str}"
-    p "comp_word #{word}"
-    p "guess #{guesse}"
     if str == word
       puts "!!!!!!!!You've Won!!!!!!!!!".light_green
       play_again?
@@ -170,11 +178,7 @@ end
 
 newgame = Hangman.new(1)
 
-# choice = gets.chomp
-# until choice == 'y'
-#   Hangman.new(1)
-# end
-# puts "==> Thanks for playing. We can't wait to see you again."
+
 
 
   
