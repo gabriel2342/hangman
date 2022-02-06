@@ -1,0 +1,20 @@
+--- !ruby/object:Hangman
+comp_word: dispatched
+first_correct_guess: true
+dash:
+- "-"
+- "-"
+- "-"
+- "\e[0;92;49mp\e[0m"
+- "\e[0;92;49ma\e[0m"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+incorrect_guesses: 7
+guessarr:
+- "\e[0;31;49mx\e[0m"
+guess: save
+letter: save
+dashstr: "---\e[0;92;49mp\e[0m\e[0;92;49ma\e[0m-----"

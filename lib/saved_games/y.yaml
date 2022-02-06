@@ -1,0 +1,17 @@
+--- !ruby/object:Hangman
+comp_word: expected
+first_correct_guess: false
+dash:
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+incorrect_guesses: 8
+guessarr: []
+guess: save
+letter: save
+dashstr: "--------"

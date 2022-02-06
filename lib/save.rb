@@ -22,6 +22,8 @@ module SaveLoad
       YAML.load(yaml)
     else
       puts "Could not find file #{save_name}. Starting new game"
+      game = Hangman.new(0)
+      sleep(3)
     end
   end
 

@@ -1,7 +1,7 @@
 module Display 
   
   def display_word_size
-    puts "\n==> Your word has" + " #{word_size}".colorize(:cyan) + " letters.\n\n"
+    puts "==> Your word has" + " #{word_size}".cyan + " letters.\n\n"
   end
 
   def welcome_banner
@@ -11,13 +11,15 @@ module Display
   end
     
   def game_overview  
-    puts "\n==> For each attempt you will be given an opportunity to guess"
-    puts "==> a letter and match it with a letter in our secret word."
-    puts "==> The secret word is choosen randomly by our computer and will"
-    puts "==> be between 5-10 letters long." 
-    puts "==> You're allowed 8 incorrect guesses when trying to decipher" 
-    puts "==> our secret word."
-    puts "==> Let's get started!!! Choose wisely and flourish\n\n"
+    puts "\n==> The classic game of Hangman has been played in school classrooms"
+    puts "==> for a long time. Here aare some guidelines for this version of the game:"
+    puts "\n    1) A secret word is choosen randomly by our computer and will be"
+    puts "       between 5-10 letters long. The word can be a name or a place." 
+    puts "    2) You're allowed 8 incorrect guesses when trying to decipher" 
+    puts "       the secret word."
+    puts "    3) You can save your game at anytime by typing save when prompted"
+    puts "       for a guess by the computer. Your game can be loaded next go around."
+    puts "\n==> Now, let's get started!!!. Choose wisely and flourish.\n"
   end
 
   def start_game_display
@@ -44,7 +46,6 @@ module Display
   end
 
   def body(das)
-    das = das.colorize(:light_yellow)
     puts "    |        |              #{das}"
     puts "    |        |"
   end
@@ -53,7 +54,7 @@ module Display
     puts "    |      _/ \\_ "
   end
 
-  def leg_one
+  def legs_one
     puts "    |       /"
   end
 
@@ -79,24 +80,14 @@ module Display
     puts "    |\\___"
   end
 
-  
-
-  
-
   def all_incorrect_guesses
     puts "==> You have all of your incorrect guesses."
   end
 
-  def current_results(string)
-    puts "==> Here's where you stand: #{string}"
-  end
-
   def num_incorrect_guesses(array)
     if array.empty?
-      
-      puts "==> Your past incorrect guesses are" + " NONE".colorize(:cyan)
+      puts "==> Your past incorrect guesses are" + " NONE".cyan
     else
-      p array
       puts "==> Your past incorrect guesses are #{array.join(" ")}"
     end
 
@@ -111,8 +102,6 @@ module Display
     puts "==> Your guess can only be a single letter of the English alphabet"
   end
 
-  def display_warning_if_needed(char)
-    
-  end
+ 
 
 end

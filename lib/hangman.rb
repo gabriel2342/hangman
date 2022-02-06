@@ -18,13 +18,14 @@ class Hangman
 
   
   def initialize(bool)
-    load_or_play unless bool == 'new'
+    load_or_play unless bool == 0
     words = File.open("google-10000-english-no-swears.txt")
     words_list = words.readlines.map(&:chomp)
-    p @comp_word =  words_list.sample 
+    @comp_word =  words_list.sample 
     until @comp_word.size >=5 && @comp_word.size <= 10   
       @comp_word = words_list.sample
     end
+    start_game_display
     @first_correct_guess = false
     @dash = ("-"*word_size).split("")
     @incorrect_guesses = MAX_GUESS
@@ -32,6 +33,7 @@ class Hangman
     @guess = ""
     @letter = ""
     @dashstr = ""
+    game_round
   end
 
  #========================
@@ -57,7 +59,7 @@ class Hangman
 
 
   def player_guess
-    puts "\n==> Please enter your best guess for a letter in our secret word."
+    puts "==> Please enter your best guess for a letter in our secret word."
     @guess = gets.chomp
     #save?(@guess) if @guess.downcase == 'save'
   end
@@ -105,15 +107,15 @@ class Hangman
         @first_correct_guess = true
         @dashstr = replace_dashes(@dash)
         current_hangman(@incorrect_guesses, @dashstr)
-        puts "\n==> Yay! Great Guess!!".colorize(:light_green)
+        puts "\n==> Yay! Great Guess!!".light_green
         all_incorrect_guesses if @incorrect_guesses == MAX_GUESS
         num_incorrect_guesses(@guessarr)
         remaining_incorrect_guesses(@incorrect_guesses) if @incorrect_guesses != MAX_GUESS
       else
         @incorrect_guesses -= WRONG_GUESS
         current_hangman(@incorrect_guesses, @dashstr)
-        @guessarr << @letter.colorize(:red)
-        puts  "\n==> Womp Womp. Wrong.".colorize(:red)
+        @guessarr << @letter.red
+        puts  "\n==> Womp Womp. Wrong.".red
         num_incorrect_guesses(@guessarr)
         remaining_incorrect_guesses(@incorrect_guesses)
       end
@@ -125,23 +127,33 @@ class Hangman
     puts "\n==> Would you like to play a new game or load an old one?\n==> Type 1 to start a new game\n==> OR 2 to load a game one"
     choice = gets.chomp.to_i
     if choice == 1
-      Hangman.new('new')
+      Hangman.new(0)
     elsif choice == 2
-      puts "Please enter the name of the file you would like to load: "
+      puts "==> Please enter the name of the file you would like to load: "
       file_name = gets.chomp
       game = deserialize(file_name)
       game.game_round
     end
   end
 
+  def play_again?
+    puts "==> Would you like to play again? (Type 'y' for yes or 'n' for no.)"
+    choice = gets.chomp
+    Hangman.new(1) if choice == 'y'
+    puts "==> Thanks for playing! We hope to see you soon."
 end
 
 
  
   
 
-newgame = Hangman.new('')
+newgame = Hangman.new(1)
 
+choice = gets.chomp
+until choice == 'y'
+  Hangman.new(1)
+end
+puts "==> Thanks for playing. We can't wait to see you again."
 
 
   

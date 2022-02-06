@@ -27,7 +27,7 @@ module HangmanDrawing
     bottom
   end
   
-  def guess_2(dashse)
+  def guess_2(dashe)
     top
     head
     arms_and_hands
