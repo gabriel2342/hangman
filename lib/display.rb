@@ -1,8 +1,7 @@
- 
- module Display 
+module Display 
   
   def display_word_size
-    puts "\n==> Your word has #{word_size} letters.\n\n"
+    puts "\n==> Your word has" + " #{word_size}".colorize(:cyan) + " letters.\n\n"
   end
 
   def welcome_banner
@@ -22,9 +21,9 @@
   end
 
   def start_game_display
-    welcome_banner #output welcome banner
-    guess_8 #output hangnman stand
-    game_overview #output game description and rules
+    welcome_banner 
+    guess_init 
+    game_overview 
     display_word_size
   end
 
@@ -44,8 +43,9 @@
     puts "    |     o__|__o"
   end
 
-  def body
-    puts "    |        |"
+  def body(das)
+    das = das.colorize(:light_yellow)
+    puts "    |        |              #{das}"
     puts "    |        |"
   end
 
@@ -65,6 +65,10 @@
     puts "    |"
   end
 
+  def second_stand_piece(das)
+    puts "    |                       #{das}"
+  end
+
   def top
     puts "    __________"
     puts "    |/       |"
@@ -75,16 +79,12 @@
     puts "    |\\___"
   end
 
-  def great_guess
-    puts "\n==> Yay! Great Guess!!"
-  end
+  
 
-  def womp_womp
-    puts "\n==> Womp Womp. Wrong."
-  end 
+  
 
   def all_incorrect_guesses
-    puts "You have all of your incorrect guesses."
+    puts "==> You have all of your incorrect guesses."
   end
 
   def current_results(string)
@@ -92,14 +92,27 @@
   end
 
   def num_incorrect_guesses(array)
-    puts "==> Your past incorrect guesses are #{array.join(" ")}"
+    if array.empty?
+      
+      puts "==> Your past incorrect guesses are" + " NONE".colorize(:cyan)
+    else
+      p array
+      puts "==> Your past incorrect guesses are #{array.join(" ")}"
+    end
+
   end
 
   def remaining_incorrect_guesses(num)
+    num = num.to_s.colorize(:cyan)
     puts "==> You have #{num} incorrect guesses remaining."
   end
   
+  def display_warning
+    puts "==> Your guess can only be a single letter of the English alphabet"
+  end
+
+  def display_warning_if_needed(char)
+    
+  end
+
 end
-
-
-

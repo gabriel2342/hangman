@@ -1,0 +1,16 @@
+--- !ruby/object:Hangman
+comp_word: stereo
+first_correct_guess: true
+dash:
+- "-"
+- "-"
+- "\e[0;39;49me\e[0m"
+- "-"
+- "\e[0;39;49me\e[0m"
+- "-"
+incorrect_guesses: 7
+guessarr:
+- "\e[0;31;49ma\e[0m"
+guess: save
+letter: save
+dashstr: "--\e[0;39;49me\e[0m-\e[0;39;49me\e[0m-"

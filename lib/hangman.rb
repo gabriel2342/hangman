@@ -5,21 +5,33 @@ require_relative './save.rb'
 require 'colorize'
 require 'yaml'
 
+MAX_GUESS = 8
+INIT_NUM_WRONG = 0
+NO_GUESSES_LEFT = 0
+WRONG_GUESS = 1
 
-class Hangman
+class Hangman 
   
   include Display
   include HangmanDrawing
   include SaveLoad
+
   
-  def initialize #creates list of 10000 words when initialized
+  def initialize(bool)
+    load_or_play unless bool == 'new'
     words = File.open("google-10000-english-no-swears.txt")
     words_list = words.readlines.map(&:chomp)
-    #Checks to make sure our word is between 5 and 10 words long
-    @comp_word =  words_list.sample    
-    @comp_word = check_word(@comp_word)
-    @dash = dashes
-    start_game_display
+    p @comp_word =  words_list.sample 
+    until @comp_word.size >=5 && @comp_word.size <= 10   
+      @comp_word = words_list.sample
+    end
+    @first_correct_guess = false
+    @dash = ("-"*word_size).split("")
+    @incorrect_guesses = MAX_GUESS
+    @guessarr = []
+    @guess = ""
+    @letter = ""
+    @dashstr = ""
   end
 
  #========================
@@ -38,16 +50,12 @@ class Hangman
     @comp_word
   end
 
-  def check_word(word)
-    until word_size >=5 && word_size <=10
-      word =  words_list.sample    
-     end
-     word
-    end
   #============================
   # Gameplay
   #============================
  
+
+
   def player_guess
     puts "\n==> Please enter your best guess for a letter in our secret word."
     @guess = gets.chomp
@@ -60,81 +68,84 @@ class Hangman
 
   def validate_guess(char)
     false unless char =~ /[A-Za-z]/ && char.size == 1
-
   end
 
   def guess_correct?
     @comp_word.include?(@guess)
   end
   
-  def dashes 
-    d = "-"*word_size
-    d.split("")
-  end
-
   
-  def replace_dashes(dash)
+  def replace_dashes(dashh)
     word_array.each_with_index do |char,i|
       if char == @guess
-        dash.delete_at(i)
-        dash.insert(i, char)
+        dashh.delete_at(i)
+        dashh.insert(i, char.colorize(:light_green))
       end
     end
-   dash.join("")
+   dashh.join("")
   end
 
 
-end
+  def game_round
+    
+    @dashstr = @dash.join("")
+    while @incorrect_guesses > NO_GUESSES_LEFT
+
+      @letter = player_guess
+      if_save?(@letter)
+      validate_guess(@letter)
+
+      while validate_guess(@letter) == false
+        display_warning
+        @letter = player_guess
+      end
 
 
+      if guess_correct?
+        @first_correct_guess = true
+        @dashstr = replace_dashes(@dash)
+        current_hangman(@incorrect_guesses, @dashstr)
+        puts "\n==> Yay! Great Guess!!".colorize(:light_green)
+        all_incorrect_guesses if @incorrect_guesses == MAX_GUESS
+        num_incorrect_guesses(@guessarr)
+        remaining_incorrect_guesses(@incorrect_guesses) if @incorrect_guesses != MAX_GUESS
+      else
+        @incorrect_guesses -= WRONG_GUESS
+        current_hangman(@incorrect_guesses, @dashstr)
+        @guessarr << @letter.colorize(:red)
+        puts  "\n==> Womp Womp. Wrong.".colorize(:red)
+        num_incorrect_guesses(@guessarr)
+        remaining_incorrect_guesses(@incorrect_guesses)
+      end
 
-game = Hangman.new #initialize game
-
-
-
-
-incorrect_guesses = 8 #initialize the numbers of guesses for each user 
-guessarr =[] #array of wrong guesses by the user
-letter = ""
-
-
-while incorrect_guesses > 0
-    letter = game.player_guess
-    game.if_save?(letter)
-    game.validate_guess(letter)
-    while game.validate_guess(letter) == false
-      puts "==> Your guess can only be a single letter of the English alphabet"
-      letter = game.player_guess
     end
-
-  if game.guess_correct?
-    dashstr = game.replace_dashes(dash)
-    game.current_hangman(incorrect_guesses)
-    game.great_guess
-    game.current_results(dashstr)
-    game.all_incorrect_guesses if incorrect_guesses == 8
-    game.num_incorrect_guesses(guessarr)
-    game.remaining_incorrect_guesses(incorrect_guesses) unless incorrect_guesses == 8
-  else 
-    incorrect_guesses -=1
-    game.current_hangman(incorrect_guesses)
-    guessarr << letter
-    game.womp_womp
-    game.current_results(dash.join("")) if incorrect_guesses == 7
-    game.current_results(dashstr) unless incorrect_guesses == 7
-    game.num_incorrect_guesses(guessarr)
-    game.remaining_incorrect_guesses(incorrect_guesses)
   end
 
-  if incorrect_guesses == 0
-    puts "==> You've lost. Great game!"
-   # break
-  #elsif dashstr == word
-    puts "==> You've Won!"
-    break
+  def load_or_play
+    puts "\n==> Would you like to play a new game or load an old one?\n==> Type 1 to start a new game\n==> OR 2 to load a game one"
+    choice = gets.chomp.to_i
+    if choice == 1
+      Hangman.new('new')
+    elsif choice == 2
+      puts "Please enter the name of the file you would like to load: "
+      file_name = gets.chomp
+      game = deserialize(file_name)
+      game.game_round
+    end
   end
 
 end
+
+
+ 
+  
+
+newgame = Hangman.new('')
+
+
+
+  
+
 
   
 
