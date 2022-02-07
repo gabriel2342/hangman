@@ -5,9 +5,9 @@ module Display
   end
 
   def welcome_banner
-    puts "\n================================"
-    puts "     Welcome to Hangman!!!!!"
-    puts "================================"
+    puts "\n\t\t  ================================"
+    puts "\t\t       Welcome to Hangman!!!!!"
+    puts "\t\t  ================================"
   end
     
   def game_overview  
@@ -19,7 +19,7 @@ module Display
     puts "       the secret word."
     puts "    3) You can save your game at anytime by typing save when prompted"
     puts "       for a guess by the computer. Your game can be loaded next go around."
-    puts "\n==> Now, let's get started!!!. Choose wisely and flourish.\n"
+    puts "\n==> Now, let's get started!!!. Choose wisely and flourish.\n\n"
   end
 
   def start_game_display
@@ -87,7 +87,7 @@ module Display
   def num_incorrect_guesses(array)
     red_guess = array.join(" ")
     red_guess = red_guess.red
-    if array.nil?
+    if array.empty?
       puts "==> Your past incorrect guesses are" + " NONE".cyan
     else
       puts "==> Your past incorrect guesses are #{red_guess}"

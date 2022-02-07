@@ -1,14 +1,17 @@
 module HangmanDrawing
 
   def guess_init
-    top
-    head
-    arms_and_hands
-    puts "    |        |"
-    puts "    |        |"
-    legs_and_feet
-    bottom
+    puts "\t\t\t    __________"
+    puts "\t\t\t    |/       |"
+    puts "\t\t\t    |       (_)"
+    puts "\t\t\t    |     o__|__o"    
+    puts "\t\t\t    |        |"
+    puts "\t\t\t    |        |"
+    puts "\t\t\t    |      _/ \\_ "
+    puts "\t\t\t    |"
+    puts "\t\t\t    |\\___"  
   end
+
   def guess_0(dashe)
     top
     head

@@ -34,7 +34,7 @@ class Hangman
     @guess = ""
     @letter = ""
     @dashstr = ""
-    
+    p @comp_word
     game_round
   end
 
@@ -142,7 +142,11 @@ class Hangman
     if choice == 1
       Hangman.new(0)
     elsif choice == 2
-      puts "==> Please enter the name of the file you would like to load: "
+      files = Dir.entries('./saved_games')
+      files = files[0..-3]
+      puts "\n   List of saved games:".yellow
+      files.each_with_index {|file, i| puts "   #{i+1}. #{file}"}
+      puts "\n==> Please enter the name of the file you would like to load."
       file_name = gets.chomp
       game = deserialize(file_name)
       game.game_round
