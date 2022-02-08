@@ -1,0 +1,16 @@
+--- !ruby/object:Hangman
+comp_word: vsnet
+first_correct_guess: false
+dash:
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+incorrect_guesses: 7
+correct_guess_arr: []
+wrong_guess_arr:
+- a
+guess: save
+letter: save
+dashstr: "-----"
