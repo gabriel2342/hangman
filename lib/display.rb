@@ -1,5 +1,9 @@
 module Display 
 
+  def display_play_again
+    "==> Would you like to play again? (Type 'y' for yes or 'n' for no.)"
+  end
+
   def display_load_or_play
     "\n==> Would you like to play a new game or load an old one?\n==> Type 1 to start a new game\n==> OR 2 to load a game one"
   end

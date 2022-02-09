@@ -3,6 +3,8 @@ class CompWordPlayerGuess
 
   attr_accessor :comp_word, :guess
 
+  @@comp_word = ""
+
   def initialize
     @@guess = nil
   end
@@ -56,6 +58,19 @@ class CompWordPlayerGuess
       end
     end
    dashh.join('')
+  end
+
+  def play_again?
+    puts display_play_again
+    choice = gets.chomp
+    until choice == 'y' or choice == 'n'
+      puts "==> Please only enter 'y' or 'n'"
+      choice = gets.chomp
+    end
+    
+    Hangman.new(1) if choice == 'y'
+    puts "==> Thanks for playing! We hope to see you soon."
+    exit
   end
 
 end

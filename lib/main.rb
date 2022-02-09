@@ -45,18 +45,18 @@ def init_dashes
   @dash = ('-'*word_size).split('')
 end
 
-  def validate_guess(char)
-    unless char =~ /[A-Za-z]/ && char.size == 1
-      puts display_only_single_letter.yellow
-      return false
-    end
-
-    if @correct_guess_arr.include?(char) || @wrong_guess_arr.include?(char)
-      puts display_already_played.yellow
-      return false
-    end
-
+def validate_guess(char)
+  unless char =~ /[A-Za-z]/ && char.size == 1
+    puts display_only_single_letter.yellow
+    return false
   end
+
+  if @correct_guess_arr.include?(char) || @wrong_guess_arr.include?(char)
+    puts display_already_played.yellow
+    return false
+  end
+
+end
 
  def guess_and_validate
   @letter = player_guess
@@ -65,7 +65,7 @@ end
  end
 
  def game_round
-    
+    p @@comp_word
     @dashstr = @dash.join('')
     while @incorrect_guesses > NO_GUESSES_LEFT
 
@@ -89,12 +89,12 @@ end
         num_incorrect_guesses(@wrong_guess_arr)
         remaining_incorrect_guesses(@incorrect_guesses)
       end
+      win_or_loss?(@incorrect_guesses)
     end
-    win_or_loss?(@@comp_word, @dashstr, @incorrect_guesses)
   end
 
-  def win_or_loss?(word, str, guesse)
-    if str == word
+  def win_or_loss?(guesse)
+    if @@comp_word.light_green == @dashstr
       puts "!!!!!!!!You've Won!!!!!!!!!".light_green
       play_again?
     end
@@ -105,13 +105,7 @@ end
     end
   end
 
-  def play_again?
-    puts "==> Would you like to play again? (Type 'y' for yes or 'n' for no.)"
-    choice = gets.chomp
-    Hangman.new(1) if choice == 'y'
-    puts "==> Thanks for playing! We hope to see you soon."
-    exit
-  end
+  
 end
 
  Hangman.new(1)
