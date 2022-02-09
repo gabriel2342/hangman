@@ -1,5 +1,9 @@
 module Display 
 
+  def display_load_or_play
+    "\n==> Would you like to play a new game or load an old one?\n==> Type 1 to start a new game\n==> OR 2 to load a game one"
+  end
+
   def display_already_played
     "\n==> You've played this letter already. Please guess again!\n"
   end

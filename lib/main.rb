@@ -3,6 +3,7 @@
 require_relative './display'
 require_relative './drawing'
 require_relative './save'
+require_relative './word_and_guess'
 require 'colorize'
 require 'yaml'
 
@@ -13,11 +14,12 @@ WRONG_GUESS = 1
 
 # Our main class where gameplay is laid out
 
-class Hangman 
+class Hangman < CompWordPlayerGuess
   
   include Display
   include HangmanDrawing
   include SaveLoad
+  
 
   
   def initialize(bool)
@@ -29,7 +31,6 @@ class Hangman
     @incorrect_guesses = MAX_GUESS
     @correct_guess_arr = []
     @wrong_guess_arr = []
-    @guess = nil
     @letter = nil
     @dashstr = nil
     game_round
@@ -40,49 +41,8 @@ class Hangman
  #========================
 
 def init_dashes
-  @dash = ("-"*word_size).split("")
+  @dash = ('-'*word_size).split('')
 end
-
-def open_words_file
-  File.open("google-10000-english-no-swears.txt")
-end
-
-def google_words_list
-  open_words_file.readlines.map(&:chomp)
-end
-
- def choose_game_word
-  @comp_word =  google_words_list.sample 
-  validate_game_word
-end
- 
-def validate_game_word
-  until @comp_word.size >=5 && @comp_word.size <= 10   
-    choose_game_word
-  end
-end
-
-
- def word_size
-    @comp_word.size
-  end
-
-  def word_array
-    @comp_word.chars
-  end
-  
-  def new_word
-    @comp_word
-  end
-
-  #============================
-  # Gameplay
-  #============================
- 
-  def player_guess
-    display_player_guess
-    @guess = gets.chomp.downcase
-  end
 
   def validate_guess(char)
     unless char =~ /[A-Za-z]/ && char.size == 1
@@ -95,21 +55,6 @@ end
       return false
     end
 
-  end
-
-  def guess_correct?
-    @comp_word.include?(@guess)
-  end
-  
-  
-  def replace_dashes(dashh)
-    word_array.each_with_index do |char,i|
-      if char == @guess
-        dashh.delete_at(i)
-        dashh.insert(i, char)
-      end
-    end
-   dashh.join('')
   end
 
  def guess_and_validate
@@ -145,24 +90,7 @@ end
       end
 
     end
-    win_or_loss?(@comp_word, @dashstr, @incorrect_guesses)
-  end
-
-  def load_or_play
-    puts "\n==> Would you like to play a new game or load an old one?\n==> Type 1 to start a new game\n==> OR 2 to load a game one"
-    choice = gets.chomp.to_i
-    if choice == 1
-      Hangman.new(0)
-    elsif choice == 2
-      files = Dir.entries('./saved_games')
-      files = files[0..-3]
-      puts "\n   List of saved games:".yellow
-      files.each_with_index {|file, i| puts "   #{i+1}. #{file}"}
-      puts "\n==> Please enter the name of the file you would like to load."
-      file_name = gets.chomp
-      game = deserialize(file_name)
-      game.game_round
-    end
+    win_or_loss?(@@comp_word, @dashstr, @incorrect_guesses)
   end
 
   def win_or_loss?(word, str, guesse)

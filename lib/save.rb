@@ -32,17 +32,16 @@ module SaveLoad
   end
 
   def load_or_play
-    display_load_or_play
+    puts "\n==> Would you like to play a new game or load an old one?\n==> Type 1 to start a new game\n==> OR 2 to load a game one"
     choice = gets.chomp.to_i
-    case choice
-    when choice == 1
+    if choice == 1
       Hangman.new(0)
-    when choice == 2
+    elsif choice == 2
       files = Dir.entries('./saved_games')
       files = files[0..-3]
-      puts '\n   List of saved games:'.yellow
-      files.each_with_index { |file, i| puts "   #{i + 1}. #{file}" }
-      display_load_name
+      puts "\n   List of saved games:".yellow
+      files.each_with_index {|file, i| puts "   #{i+1}. #{file}"}
+      puts "\n==> Please enter the name of the file you would like to load."
       file_name = gets.chomp
       game = deserialize(file_name)
       game.game_round

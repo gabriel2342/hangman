@@ -1,0 +1,19 @@
+--- !ruby/object:Hangman
+comp_word: horizon
+dash:
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+first_correct_guess: false
+incorrect_guesses: 6
+correct_guess_arr: []
+wrong_guess_arr:
+- a
+- l
+guess: save
+letter: save
+dashstr: "-------"

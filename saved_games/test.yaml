@@ -1,0 +1,16 @@
+--- !ruby/object:Hangman
+dash:
+- "-"
+- a
+- "-"
+- "-"
+- "-"
+- "-"
+first_correct_guess: true
+incorrect_guesses: 7
+correct_guess_arr:
+- a
+wrong_guess_arr:
+- s
+letter: save
+dashstr: "\e[0;92;49m-a----\e[0m"
