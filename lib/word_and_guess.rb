@@ -1,7 +1,7 @@
 
 class CompWordPlayerGuess
 
-  attr_accessor :comp_word
+  attr_accessor :comp_word, :guess
 
   def initialize
     @@guess = nil
@@ -45,7 +45,7 @@ class CompWordPlayerGuess
 
   def guess_correct?
     p "test"
-    p @@comp_word.include?(@@guess)
+    @@comp_word.include?(@@guess)
   end
 
   def replace_dashes(dashh)

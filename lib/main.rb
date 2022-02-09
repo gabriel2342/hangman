@@ -15,30 +15,31 @@ WRONG_GUESS = 1
 # Our main class where gameplay is laid out
 
 class Hangman < CompWordPlayerGuess
-  
+
   include Display
   include HangmanDrawing
   include SaveLoad
-  
+  attr_accessor :comp_word, :guess, :first_correct_guess, :incorrect_guesses, 
+                :correct_guess_arr, :wrong_guess_arr, :letter, :dashstr
 
-  
-  def initialize(bool)
-    load_or_play unless bool.zero?
-    choose_game_word
-    start_game_display
-    init_dashes
+  def initialize(bool)    
     @first_correct_guess = false
     @incorrect_guesses = MAX_GUESS
     @correct_guess_arr = []
     @wrong_guess_arr = []
     @letter = nil
     @dashstr = nil
+    load_or_play unless bool.zero?
+    start_game
     game_round
   end
   
- #========================
- #Computer Word
- #========================
+ 
+def start_game 
+  choose_game_word
+  start_game_display
+  init_dashes
+end
 
 def init_dashes
   @dash = ('-'*word_size).split('')
@@ -88,7 +89,6 @@ end
         num_incorrect_guesses(@wrong_guess_arr)
         remaining_incorrect_guesses(@incorrect_guesses)
       end
-
     end
     win_or_loss?(@@comp_word, @dashstr, @incorrect_guesses)
   end
