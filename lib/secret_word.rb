@@ -21,13 +21,4 @@ module SecretWord
     puts "==> Thanks for playing! We hope to see you soon."
     exit
   end
-
-  def check_if_letter_and_size(char)
-    unless char =~ /[A-Za-z]/ && char.size == 1
-      puts "\n==> Please only enter a single letter of the English alphabet!\n".yellow
-      return false
-    end
-  end
-  
-
 end

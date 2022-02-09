@@ -1,117 +1,120 @@
+# frozen_string_literal: true
+
+#draws our hagman for us
 module HangmanDrawing
 
   def guess_init
     puts "\t\t\t    __________"
     puts "\t\t\t    |/       |"
     puts "\t\t\t    |       (_)"
-    puts "\t\t\t    |     o__|__o"    
+    puts "\t\t\t    |     o__|__o"
     puts "\t\t\t    |        |"
     puts "\t\t\t    |        |"
     puts "\t\t\t    |      _/ \\_ "
     puts "\t\t\t    |"
-    puts "\t\t\t    |\\___"  
+    puts "\t\t\t    |\\___"
   end
 
-  def guess_0(dashe)
+  def guess_zero(body_dash)
     top
     head
     arms_and_hands
-    body(dashe)
+    body(body_dash)
     legs_and_feet
     bottom
   end
 
-  def guess_1(dashe)
+  def guess_one(body_dash)
     top
     head
     arms_and_hands
-    body(dashe)
+    body(body_dash)
     legs_two
     bottom
   end
-  
-  def guess_2(dashe)
+
+  def guess_two(body_dash)
     top
     head
     arms_and_hands
-    body(dashe)
+    body(body_dash)
     legs_one
     bottom
   end
 
-  def guess_3(dashe)
+  def guess_three(body_dash)
     top
     head
     arms_and_hands
-    body(dashe)
+    body(body_dash)
     stand_piece
     bottom
   end
 
-  def guess_4(dashe)
+  def guess_four(body_dash)
     top
     head
     arms_and_hands
-    second_stand_piece(dashe)
+    second_stand_piece(body_dash)
     stand_piece
     bottom
   end
 
-  def guess_5(dashe)
+  def guess_five(body_dash)
     top
     head
     arms_two
-    second_stand_piece(dashe)
+    second_stand_piece(body_dash)
     stand_piece
     bottom
   end
 
-  def guess_6(dashe)
+  def guess_six(body_dash)
     top
     head
     arms_one
-    second_stand_piece(dashe)
+    second_stand_piece(body_dash)
     stand_piece
     bottom
   end
 
-  def guess_7(dashe)
+  def guess_seven(body_dash)
     top
     head
     stand_piece
-    second_stand_piece(dashe)
+    second_stand_piece(body_dash)
     stand_piece
     bottom
   end
 
-  def guess_8(dashe)
+  def guess_eight(body_dash)
     top
     stand_piece
     stand_piece
-    second_stand_piece(dashe)
+    second_stand_piece(body_dash)
     stand_piece
     bottom
   end
 
-  def current_hangman(n, string)
-    if n == 1
-      guess_1(string)
-    elsif n == 2
-      guess_2(string)
-    elsif n == 3
-      guess_3(string)
-    elsif n == 4
-      guess_4(string)
-    elsif n == 5
-      guess_5(string)
-    elsif n == 6
-      guess_6(string)
-    elsif n == 7
-      guess_7(string)
-    elsif n == 8
-      guess_8(string)
+  def display_current_hangman(num, string)  #no idea why a case statement isn't working here???????
+    if num == 1
+      guess_one(string)
+    elsif num == 2
+      guess_two(string)
+    elsif num == 3
+      guess_three(string)
+    elsif num == 4
+      guess_four(string)
+    elsif num == 5
+      guess_five(string)
+    elsif num == 6
+      guess_six(string)
+    elsif num == 7
+      guess_seven(string)
+    elsif num == 8
+      guess_eight(string)
     else             
-      guess_0(string)
+      guess_zero(string)
     end
   end
 end
