@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# This module containts all of the string objects used in our classes 
+# that are not containt in our drawing module
+
 module Display 
   def display_thanks
     "==> Thanks for playing! We hope to see you soon."
@@ -16,7 +21,7 @@ module Display
   end
 
   def display_enter_name
-    "\n==> Please enter the name of the file you would like to load."
+    "\n==> Please enter the name of the file you would like to save."
   end
 
   def display_you_won
