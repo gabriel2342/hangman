@@ -1,4 +1,31 @@
 module Display 
+  def display_thanks
+    "==> Thanks for playing! We hope to see you soon."
+  end
+
+  def display_only_y_n
+    "==> Please only enter 'y' or 'n'"
+  end
+
+  def display_file_saved
+    'File Saved successfully'
+  end
+
+  def display_list_saved
+    "\n   List of saved games:"
+  end
+
+  def display_enter_name
+    "\n==> Please enter the name of the file you would like to load."
+  end
+
+  def display_you_won
+    "!!!!!!!!You've Won!!!!!!!!!"
+  end
+
+  def display_you_lost
+    "Womp. Womp. Womp. Womp."
+  end
 
   def display_play_again
     "==> Would you like to play again? (Type 'y' for yes or 'n' for no.)"

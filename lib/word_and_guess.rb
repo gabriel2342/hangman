@@ -4,6 +4,7 @@ class CompWordPlayerGuess
   attr_accessor :comp_word, :guess
 
   @@comp_word = ""
+  @@dash = ""
 
   def initialize
     @@guess = nil
@@ -46,7 +47,6 @@ class CompWordPlayerGuess
   end
 
   def guess_correct?
-    p "test"
     @@comp_word.include?(@@guess)
   end
 
@@ -60,16 +60,27 @@ class CompWordPlayerGuess
    dashh.join('')
   end
 
+  def init_dashes
+    @@dash = ('-'*word_size).split('')
+  end
+
+  def validate_guess(char)
+    unless char =~ /[A-Za-z]/ && char.size == 1
+      puts display_only_single_letter.yellow
+      return false
+    end
+  end
+
   def play_again?
     puts display_play_again
     choice = gets.chomp
     until choice == 'y' or choice == 'n'
-      puts "==> Please only enter 'y' or 'n'"
+      puts display_only_y_n
       choice = gets.chomp
     end
     
     Hangman.new(1) if choice == 'y'
-    puts "==> Thanks for playing! We hope to see you soon."
+    puts display_thanks
     exit
   end
 

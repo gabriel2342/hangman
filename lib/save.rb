@@ -1,7 +1,7 @@
 module SaveLoad 
 
   def save_game
-    puts "Please enter the name of your file."
+    puts display_enter_name
     file_name = gets.chomp
     serialize(file_name)
    end
@@ -11,7 +11,7 @@ module SaveLoad
     yaml = YAML.dump(self)
     game_file = File.new("./saved_games/#{save_name}.yaml", "w+")
     game_file.write(yaml)
-    puts 'File Saved successfully'
+    puts display_file_saved
     exit(true)
   end
 
@@ -32,16 +32,16 @@ module SaveLoad
   end
 
   def load_or_play
-    puts "\n==> Would you like to play a new game or load an old one?\n==> Type 1 to start a new game\n==> OR 2 to load a game one"
+    puts display_load_or_play
     choice = gets.chomp.to_i
     if choice == 1
       Hangman.new(0)
     elsif choice == 2
       files = Dir.entries('./saved_games')
       files = files[0..-3]
-      puts "\n   List of saved games:".yellow
+      puts display_list_saved.yellow
       files.each_with_index {|file, i| puts "   #{i+1}. #{file}"}
-      puts "\n==> Please enter the name of the file you would like to load."
+      puts display_enter_name
       file_name = gets.chomp
       game = deserialize(file_name)
       game.game_round
