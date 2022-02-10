@@ -24,12 +24,18 @@ class Hangman < SecretWord
     start_game
     game_round
   end
-  
  
   def start_game 
     choose_game_word
     start_game_display
     init_dashes
+  end
+
+  def start_game_display
+    welcome_banner 
+    guess_init 
+    game_overview 
+    display_word_size
   end
 
 
