@@ -5,10 +5,9 @@ dashstr: ''
 correct_guess_arr: []
 wrong_guess_arr:
 - a
-- p
-secret_word: winston
+- b
+secret_word: tucson
 dash:
-- "-"
 - "-"
 - "-"
 - "-"

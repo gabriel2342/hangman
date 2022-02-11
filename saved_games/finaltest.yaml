@@ -1,0 +1,22 @@
+--- !ruby/object:Hangman
+letter: save
+incorrect_guesses: 7
+dashstr: "-------l--"
+correct_guess_arr:
+- l
+wrong_guess_arr:
+- a
+secret_word: households
+dash:
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- l
+- "-"
+- "-"
+guess: save
+first_correct_guess: true

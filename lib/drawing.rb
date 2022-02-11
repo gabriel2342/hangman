@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
-#draws our hagman for us
+# draws our hagman for us
 module HangmanDrawing
+  def second_stand_piece(das)
+    puts "    |                       #{das}"
+  end
+
+  def body(das)
+    puts "    |        |              #{das}"
+    puts '    |        |'
+  end
 
   def guess_init
     puts "\t\t\t    __________"
@@ -96,24 +104,25 @@ module HangmanDrawing
     bottom
   end
 
-  def display_current_hangman(num, string)  #no idea why a case statement isn't working here???????
-    if num == 1
+  def display_current_hangman(num, string)
+    case num
+    when 1
       guess_one(string)
-    elsif num == 2
+    when 2
       guess_two(string)
-    elsif num == 3
+    when 3
       guess_three(string)
-    elsif num == 4
+    when 4
       guess_four(string)
-    elsif num == 5
+    when 5
       guess_five(string)
-    elsif num == 6
+    when 6
       guess_six(string)
-    elsif num == 7
+    when 7
       guess_seven(string)
-    elsif num == 8
+    when 8
       guess_eight(string)
-    else             
+    else
       guess_zero(string)
     end
   end

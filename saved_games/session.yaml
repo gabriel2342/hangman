@@ -1,0 +1,24 @@
+--- !ruby/object:Hangman
+letter: save
+incorrect_guesses: 5
+dashstr: sessio-
+correct_guess_arr:
+- e
+- s
+- i
+- o
+wrong_guess_arr:
+- p
+- r
+- t
+secret_word: session
+dash:
+- s
+- e
+- s
+- s
+- i
+- o
+- "-"
+guess: save
+first_correct_guess: true

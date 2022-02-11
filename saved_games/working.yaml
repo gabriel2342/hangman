@@ -1,0 +1,21 @@
+--- !ruby/object:Hangman
+incorrect_guesses: 7
+first_correct_guess: true
+correct_guess_arr:
+- r
+wrong_guess_arr:
+- p
+letter: save
+dashstr: r--------
+dash:
+- r
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+guess: save
+secret_word: reactions
